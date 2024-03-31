@@ -1,14 +1,4 @@
 <script lang="ts">
-  async function uploadFile(event: any) {
-    const file = event?.target?.files[0] ?? null;
-    if (file) {
-      try {
-        console.log(file);
-      } catch (err: any) {
-      } finally {
-      }
-    }
-  }
 </script>
 
 <svelte:head>
