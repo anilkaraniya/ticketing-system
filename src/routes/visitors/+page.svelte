@@ -59,7 +59,7 @@
               <div
                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                <button class="pr-3 text-3xl">&#10539;</button>
+                <button class="pr-3 text-4xl">&#10539;</button>
               </div>
             </div>
           </div>
