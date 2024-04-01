@@ -32,6 +32,7 @@
     "appwrite": "^14.0.0",
     "dotenv": "^16.4.5",
     "flowbite-svelte-icons": "^1.5.0",
-    "html5-qrcode": "^2.3.8"
+    "html5-qrcode": "^2.3.8",
+    "react-image-file-resizer": "^0.4.8"
   }
 }

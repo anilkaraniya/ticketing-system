@@ -6,6 +6,11 @@
 
   let selectedPaymentFile;
   let selectedPictureFile;
+  let resizeImage = (file) => {
+    return new Promise((resolve, reject) => {
+      resize(file, 500, 500, "JPEG", 100, 0, (uri) => resolve(uri), "blob");
+    });
+  };
   if (browser) {
     onMount(() => {
       let picture =
