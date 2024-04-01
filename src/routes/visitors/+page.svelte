@@ -21,11 +21,7 @@
 
 <div class="">
   <div class="w-48 h-1 mx-auto my-4 rounded md:my-10" />
-  <List
-    tag="ul"
-    list="none"
-    class="w-full"
-  >
+  <List tag="ul" list="none" class="w-full">
     {#if data.visitors && data.visitors.length > 0}
       {#each data.visitors as visitor, index}
         <Li class="pb-3 sm:pb-4">
@@ -58,12 +54,12 @@
               <div
                 class="pr-10 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                <button class="text-4xl">&#10003;</button>
+                <button class="text-2xl">&#10003;</button>
               </div>
               <div
                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                <button class="pr-5 text-5xl">&#10539;</button>
+                <button class="pr-5 text-2xl">&#10539;</button>
               </div>
             </div>
           </div>
