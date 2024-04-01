@@ -52,14 +52,14 @@
               class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
             >
               <div
-                class="pr-10 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+                class="pr-5 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
                 <button class="text-2xl">&#10003;</button>
               </div>
               <div
                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                <button class="pr-5 text-2xl">&#10539;</button>
+                <button class="pr-3 text-3xl">&#10539;</button>
               </div>
             </div>
           </div>
