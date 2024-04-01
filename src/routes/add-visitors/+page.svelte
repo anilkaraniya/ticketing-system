@@ -119,12 +119,22 @@
 
     <div class="input-container column">
       <label for="photo">Photo</label>
-      <input type="file" name="photo" id="photo" />
+      <input
+        type="file"
+        name="photo"
+        id="photo"
+        accept=".jpg, .png, .jpeg, .gif"
+      />
     </div>
 
     <div class="input-container column">
       <label for="paymentss">Payment ScreenShot</label>
-      <input type="file" name="payments" id="payment" />
+      <input
+        type="file"
+        name="payments"
+        id="payment"
+        accept=".jpg, .png, .jpeg, .gif"
+      />
     </div>
 
     <button on:click={uploadStart}>Add Visitor</button>
