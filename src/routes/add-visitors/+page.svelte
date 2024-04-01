@@ -1,4 +1,68 @@
 <script lang="ts">
+  // @ts-nocheck
+  import { browser } from "$app/environment";
+  import { createVisitors, uploadImage } from "$lib/appwrite";
+  import { onMount } from "svelte";
+
+  let selectedPaymentFile;
+  let selectedPictureFile;
+  if (browser) {
+    onMount(() => {
+      let picture =
+        /** @type {HTMLInputElement} */ document.getElementById("photo");
+      if (picture !== null) {
+        picture.onchange = () => {
+          selectedPictureFile = picture.files[0];
+          console.log(selectedPictureFile);
+        };
+      }
+      let payment =
+        /** @type {HTMLInputElement} */ document.getElementById("payment");
+      if (payment !== null) {
+        payment.onchange = () => {
+          selectedPaymentFile = payment.files[0];
+          console.log(selectedPaymentFile);
+        };
+      }
+    });
+  }
+  async function uploadStart() {
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const course = document.getElementById("course").value;
+    const year = document.getElementById("year").value;
+    const mop = document.getElementById("mop").value;
+
+    if (!name || !phone) {
+      return {
+        status: 400,
+        body: {
+          message: "Title and description are required",
+        },
+      };
+    }
+    let uniqueID = name.substring(0, 5).trim() + phone;
+    await uploadImage(true, uniqueID, selectedPictureFile);
+    await uploadImage(false, uniqueID, selectedPaymentFile);
+
+    const result = await createVisitors(
+      name,
+      phone,
+      email,
+      course,
+      year,
+      mop,
+      uniqueID,
+      uniqueID,
+      uniqueID
+    );
+
+    return {
+      status: 200,
+      body: result,
+    };
+  }
 </script>
 
 <svelte:head>
@@ -10,25 +74,20 @@
     <h1>Add Visitors</h1>
   </div>
 
-  <form
-    method="POST"
-    action="?/create"
-    class="box column"
-    enctype="multipart/form-data"
-  >
+  <form class="box column" action="" enctype="multipart/form-data" id="form">
     <div class="input-container column">
       <label for="name">Name</label>
-      <input type="text" name="name" />
+      <input type="text" name="name" id="name" />
     </div>
 
     <div class="input-container column">
       <label for="phone">Phone No</label>
-      <input type="tel" name="phone" />
+      <input type="tel" name="phone" id="phone" />
     </div>
 
     <div class="input-container column">
       <label for="email">Mail</label>
-      <input type="email" name="email" />
+      <input type="email" name="email" id="email" />
     </div>
 
     <div class="input-container column">
@@ -68,7 +127,7 @@
       <input type="file" name="payments" id="payment" />
     </div>
 
-    <button>Add Visitor</button>
+    <button on:click={uploadStart}>Add Visitor</button>
   </form>
 </main>
 

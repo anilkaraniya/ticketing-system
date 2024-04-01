@@ -1,28 +1,37 @@
 {
-	"name": "farewell",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@fontsource/fira-mono": "^4.5.10",
-		"@neoconfetti/svelte": "^1.0.0",
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"svelte": "^4.2.7",
-		"svelte-check": "^3.6.0",
-		"typescript": "^5.0.0",
-		"vite": "^5.0.3"
-	},
-	"type": "module",
-	"dependencies": {
-		"appwrite": "^14.0.0",
-		"dotenv": "^16.4.5",
-		"html5-qrcode": "^2.3.8"
-	}
+  "name": "farewell",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@fontsource/fira-mono": "^4.5.10",
+    "@neoconfetti/svelte": "^1.0.0",
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-netlify": "^4.1.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "autoprefixer": "^10.4.16",
+    "flowbite": "^2.3.0",
+    "flowbite-svelte": "^0.44.24",
+    "postcss": "^8.4.32",
+    "postcss-load-config": "^5.0.2",
+    "svelte": "^4.2.7",
+    "svelte-check": "^3.6.0",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "@skeleton-elements/svelte": "^2.0.0",
+    "appwrite": "^14.0.0",
+    "dotenv": "^16.4.5",
+    "flowbite-svelte-icons": "^1.5.0",
+    "html5-qrcode": "^2.3.8"
+  }
 }

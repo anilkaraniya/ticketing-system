@@ -1,12 +1,10 @@
-import { Client, Databases, ID, Storage } from 'appwrite';
-import {
-	APPWRITE_ENDPOINT,
-	APPWRITE_PROJECT_ID,
-	APPWRITE_DATABASE_ID,
-	APPWRITE_COLLECTION_ID,
-	APPWRITE_STORAGE_PICTURE_ID,
-	APPWRITE_STORAGE_PAYMENT_ID
-} from '$env/static/private';
+import { Client, Databases, ID, Query, Storage } from 'appwrite';
+export let APPWRITE_PROJECT_ID= "660963105209c1bf629f"
+export let APPWRITE_ENDPOINT= "https://cloud.appwrite.io/v1"
+export let APPWRITE_DATABASE_ID= "660966fa13868169391e"
+export let APPWRITE_COLLECTION_ID= "6609672da8b35f31ec23"
+export let APPWRITE_STORAGE_PICTURE_ID = "66096789a2c6fadbda64"
+export let APPWRITE_STORAGE_PAYMENT_ID = "66096794a7bb1c96b32f"
 
 const client = new Client();
 const databases = new Databases(client);
@@ -22,23 +20,20 @@ const getVisitorsFromDatabase = async () => {
 	return documents;
 };
 
-const createVisitors = async (name: string, phone: string, email: string, course: string, year: string, mop : string, picture: File, payment: File  ) => {
-	var uniqueId = ID.unique();
+const uploadImage = async (isPicture : boolean, uniqueId : string, file: any) => {
+	console.log(uniqueId);
+	await storage.createFile(
+		isPicture ? APPWRITE_STORAGE_PICTURE_ID : APPWRITE_STORAGE_PAYMENT_ID,
+		uniqueId, 
+		file,
+		);
+} 
 
-	await storage.createFile(
-		APPWRITE_STORAGE_PICTURE_ID,
-		uniqueId, 
-		picture,
-		);
-	await storage.createFile(
-		APPWRITE_STORAGE_PAYMENT_ID,
-		uniqueId, 
-		payment,
-		);
+const createVisitors = async (name: string, phone: string, email: string, course: string, year: string, mop : string, picture: string, payment: string  , uniqueId : string) => {
 	const result = await databases.createDocument(
 		APPWRITE_DATABASE_ID,
 		APPWRITE_COLLECTION_ID,
-		uniqueId,
+		picture,
 		{
 			"name" : name, 
 			"phone" :phone, 
@@ -46,13 +41,14 @@ const createVisitors = async (name: string, phone: string, email: string, course
 			"course":course, 
 			"year":year, 
 			"mop" :mop, 
-			"pictureId" : uniqueId.toString, 
-			"paymentId" : uniqueId.toString,
-			"id" : uniqueId,
+			"pictureId" : picture, 
+			"paymentId" : picture,
+			"id" : picture,
+			'createdAt' : new Date(),
 		}
 	);
 
 	return result;
 };
 
-export { client, getVisitorsFromDatabase, createVisitors };
+export { client, getVisitorsFromDatabase, createVisitors, uploadImage };
