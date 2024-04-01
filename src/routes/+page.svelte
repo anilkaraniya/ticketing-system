@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  const id = $page.url.searchParams.has("id");
+  // const id = $page.url.searchParams.has("id");
 </script>
 
 <link

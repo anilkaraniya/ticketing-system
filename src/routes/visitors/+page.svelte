@@ -24,7 +24,7 @@
   <List
     tag="ul"
     list="none"
-    class="w-full divide-y divide-gray-200 dark:divide-gray-700"
+    class="w-full"
   >
     {#if data.visitors && data.visitors.length > 0}
       {#each data.visitors as visitor, index}
