@@ -54,7 +54,7 @@
               <div
                 class="pr-5 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
               >
-                <button class="text-2xl">&#10003;</button>
+                <button class="text-1xl">&#10003;</button>
               </div>
               <div
                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
