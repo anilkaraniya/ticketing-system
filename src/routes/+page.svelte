@@ -219,6 +219,5 @@
     width: 80%;
     margin: 0 auto;
     position: relative;
-    left: 10%;
   }
 </style>
