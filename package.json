@@ -28,12 +28,12 @@
   },
   "type": "module",
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@skeleton-elements/svelte": "^2.0.0",
     "appwrite": "^14.0.0",
     "dotenv": "^16.4.5",
     "flowbite-svelte-icons": "^1.5.0",
     "html5-qrcode": "^2.3.8",
-    "react-image-file-resizer": "^0.4.8",
     "svelte-add": "^2024.2.16-0.0"
   }
 }

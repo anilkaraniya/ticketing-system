@@ -5,6 +5,7 @@
   import { Html5Qrcode } from "html5-qrcode";
   import { onMount } from "svelte";
   import { Alert, List, Li, P } from "flowbite-svelte";
+  import {InfoCircleSolid} from 'flowbite-svelte-icons'
 
   let scanning = false;
   /**
@@ -19,6 +20,9 @@
   let data;
   $: data;
 
+  let visitorUpdate;
+  let visitorUpdateColor = "green";
+  let isVisitorUpdate = false;
   onMount(init);
 
   function init() {
@@ -47,11 +51,10 @@
   // @ts-ignore
   async function onScanSuccess(decodedText, decodedResult) {
     codeData = decodedText;
-    alert("Scanned");
+    alert("Scanned : Data in process");
     // @ts-ignore
     const fetchedData = await getVisitor(decodedText);
     data = fetchedData;
-    console.log(data);
   }
 
   async function onScanFailure() {}
@@ -61,10 +64,18 @@
     try {
       const response = await updateIsVisited(id);
       data.isVisited = true;
-      alert("The flag chnaged 🌳👍");
+      visitorUpdateColor = "green";
+      isVisitorUpdate = true;
+      visitorUpdate = "The flag chnaged 🌳👍";
     } catch {
-      alert("Danger ⚠️☠️🚨 : An unknown error occurred");
+      visitorUpdate = "Danger ⚠️☠️🚨 : An unknown error occurred";
+      visitorUpdateColor = "red";
+      isVisitorUpdate = true;
     }
+  }
+
+  function closeAlert () {
+    isVisitorUpdate = false
   }
 </script>
 
@@ -78,6 +89,12 @@
     <button on:click={stop}>stop</button>
   {:else}
     <button on:click={start}>start</button>
+  {/if}
+  {#if isVisitorUpdate}
+  <Alert color="{visitorUpdateColor}" class="mb-4" dismissable on:close={closeAlert}>
+    <InfoCircleSolid slot="icon" class="w-4 h-4" />
+    {visitorUpdate}
+  </Alert>
   {/if}
   {#if data}
     <List tag="ul" list="none" class="w-full">

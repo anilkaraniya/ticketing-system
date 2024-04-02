@@ -6,6 +6,8 @@ export let APPWRITE_DATABASE_ID= "660966fa13868169391e"
 export let APPWRITE_COLLECTION_ID= "6609672da8b35f31ec23"
 export let APPWRITE_STORAGE_PICTURE_ID = "66096789a2c6fadbda64"
 export let APPWRITE_STORAGE_PAYMENT_ID = "66096794a7bb1c96b32f"
+export let GOOGLE_EMAIL = "bfcfarewell@gmail.com"
+export let GOOGLE_EMAIL_PASSWORD = "raqtxerlprcvajnd"
 
 const client = new Client();
 const databases = new Databases(client);

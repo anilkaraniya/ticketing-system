@@ -1,8 +1,9 @@
 <script lang="ts">
   // @ts-nocheck
   import { createVisitors } from "$lib/appwrite";
-  import { Alert, Button } from 'flowbite-svelte';
+  import { Alert, } from 'flowbite-svelte';
   import { InfoCircleSolid } from 'flowbite-svelte-icons';
+  import emailjs from '@emailjs/browser';
 
   let iscreated = false;
 
@@ -22,7 +23,8 @@
         },
       };
     }
-    let uniqueID = name.substring(0, 5).trim() + phone;
+    const uniqueID = name.substring(0, 5).trim().toLowerCase() + phone;
+    console.log(uniqueID);
     
     const result = await createVisitors(
       name,
@@ -33,12 +35,52 @@
       mop,
       uniqueID,
     );
+
+    // emailjs.send("service_fsvkdnp","template_75mq9im",{
+    //   to_name: name,
+    //   message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+    //   reply_to: email,
+    // },
+    //   {
+    //     publicKey: '8Vvkzh0V5CQHPLnaq',
+    //   })
+    //   .then(
+    //     () => {
+    //       console.log('SUCCESS!');
+    //     },
+    //     (error) => {
+    //       console.log('FAILED...', error);
+    //     },
+    //   );
+
+      emailjs.send("service_fosyqp9","template_lm9mvzd",{
+      to_name: name,
+      message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+      reply_to: email,
+    },
+      {
+        publicKey: '8Vvkzh0V5CQHPLnaq',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          console.log('FAILED...', error);
+        },
+      );
+  
+
     document.getElementById("form").reset();
-    let iscreated = true;
+    iscreated = true;
     return {
       status: 200,
       body: result,
     };
+  }
+
+  function closeAlert () {
+    iscreated = false
   }
 </script>
 
@@ -46,12 +88,13 @@
   <title>Add Visitors</title>
 </svelte:head>
 
-<!-- <Alert color="green" dismissable>
+{#if iscreated}
+<Alert color="green" class="mb-4" dismissable on:close={closeAlert}>
   <InfoCircleSolid slot="icon" class="w-4 h-4" />
-  A simple info alert with an
-  <a href="/" class="font-semibold underline hover:text-green-800 dark:hover:text-green-900">example link</a>
-  . Give it a click if you like.
-</Alert> -->
+  The visitor was added successfully !!
+</Alert>
+{/if}
+
 <main class="column">
   <div class="todos-container box column">
     <h1>Add Visitors</h1>
