@@ -1,6 +1,10 @@
 <script>
-  import { page } from "$app/stores";
-  // const id = $page.url.searchParams.has("id");
+  // @ts-nocheck
+
+  import Alert from "flowbite-svelte/Alert.svelte";
+  import { InfoCircleSolid } from "flowbite-svelte-icons";
+
+  export let data;
 </script>
 
 <link
@@ -10,77 +14,88 @@
 
 <svelte:head>
   <title>Home</title>
-  <meta name="description" content="Svelte demo app" />
+  <meta name="description" content="BFC Farewell" />
 </svelte:head>
 
 <section>
-  <div class="container">
-    <div class="ticket basic">
-      <p>Admit One</p>
-    </div>
+  {#if data}
+    <div class="container">
+      <div class="ticket basic">
+        <p>Admit One</p>
+      </div>
 
-    <div class="ticket airline">
-      <div class="top">
-        <h1>Bakliwal Foundation College of Arts, Commerce and Science</h1>
-        <div class="big">
-          <p class="from">Farewell</p>
-          <p class="to">
-            <i class="fas fa-arrow-right"></i>
-            2k23
-          </p>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="column">
-          <div class="row row-1">
-            <p>
-              <span>Flight</span>
-              AA2005
-            </p>
-            <p class="row--right">
-              <span>Gate</span>
-              B3
-            </p>
-          </div>
-          <div class="row row-2">
-            <p>
-              <span>Boards</span>
-              10:25 AM
-            </p>
-            <p class="row--center">
-              <span>Departs</span>
-              11:00 AM
-            </p>
-            <p class="row--right">
-              <span>Arrives</span>
-              1:05 PM
-            </p>
-          </div>
-          <div class="row row-3">
-            <p>
-              <span>Passenger</span>
-              Jesus Ramirez
-            </p>
-            <p class="row--center">
-              <span>Seat</span>
-              11E
-            </p>
-            <p class="row--right">
-              <span>Group</span>
-              3
+      <div class="ticket airline">
+        <div class="top">
+          <h1>Bakliwal Foundation College of Arts, Commerce and Science</h1>
+          <div class="big">
+            <p class="from">Farewell</p>
+            <p class="to">
+              <i class="fas fa-arrow-right"></i>
+              2k23
             </p>
           </div>
         </div>
-        <div>
-          <img
-            class="barcode"
-            alt="Barcode"
-            src="https://barcode.tec-it.com/barcode.ashx?data=1627283767828282"
-          />
+        <div class="bottom">
+          <div class="column">
+            <div class="row row-1">
+              <p class="small-text">
+                <span>Email</span>
+                {data.response.email}
+              </p>
+              <p class="row--right small-text">
+                <span>MOP</span>
+                {data.response.mop}
+              </p>
+            </div>
+            <div class="row row-2">
+              <p>
+                <span>Entry</span>
+                03:00 PM
+              </p>
+              <p class="row--center">
+                <span>Commencement</span>
+                04:00 PM
+              </p>
+              <p class="row--right">
+                <span>End</span>
+                9:00 PM
+              </p>
+            </div>
+            <div class="row row-3">
+              <p>
+                <span>Name</span>
+                {data.response.name}
+              </p>
+              <p class="row--center">
+                <span>Year</span>
+                {data.response.year}
+              </p>
+              <p class="row--right">
+                <span>Group</span>
+                {data.response.course}
+              </p>
+            </div>
+          </div>
+          <div>
+            <img
+              class="barcode"
+              alt="Barcode"
+              src="https://barcode.tec-it.com/barcode.ashx?data={data.response
+                .id}"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {:else}
+    <div class="p-8">
+      <Alert color="red" rounded={false} class="border-t-4">
+        <InfoCircleSolid slot="icon" class="w-4 h-4" />
+        <span class="font-medium">Alert!</span>
+        Enter a valid URL.
+      </Alert>
+    </div>
+  {/if}
 </section>
 
 <style>
@@ -219,5 +234,8 @@
     width: 80%;
     margin: 0 auto;
     position: relative;
+  }
+  .small-text {
+    font-size: 12px !important;
   }
 </style>

@@ -1,4 +1,7 @@
 <script>
+  import { getVisitor } from "$lib/appwrite";
+  // @ts-ignore
+  import { redirect } from "@sveltejs/kit";
   import { Html5Qrcode } from "html5-qrcode";
   import { onMount } from "svelte";
 
@@ -7,6 +10,15 @@
    * @type {Html5Qrcode}
    */
   let html5Qrcode;
+  /**
+   * @type {string}
+   */
+  let codeData;
+
+  /**
+   * @type {{}}
+   */
+  let data;
 
   onMount(init);
 
@@ -19,7 +31,7 @@
       { facingMode: "environment" },
       {
         fps: 10,
-        qrbox: { width: 250, height: 100 },
+        qrbox: { width: 1000, height: 1000 },
       },
       onScanSuccess,
       onScanFailure
@@ -33,10 +45,16 @@
   }
 
   // @ts-ignore
-  function onScanSuccess(decodedText, decodedResult) {
-    alert(`Code matched = ${decodedText}`);
+  // @ts-ignore
+  async function onScanSuccess(decodedText, decodedResult) {
+    codeData = decodedText;
+    alert("Scanned");
+    // @ts-ignore
+    data = await getVisitor(decodedText);
+    console.log(data);
   }
 
+  // @ts-ignore
   // @ts-ignore
   function onScanFailure(error) {}
 </script>
@@ -52,6 +70,8 @@
   {:else}
     <button on:click={start}>start</button>
   {/if}
+
+  {#if codeData !== ""}{/if}
 </main>
 
 <style>

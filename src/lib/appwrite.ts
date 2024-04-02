@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import { Client, Databases, ID, Query, Storage } from 'appwrite';
 export let APPWRITE_PROJECT_ID= "660963105209c1bf629f"
 export let APPWRITE_ENDPOINT= "https://cloud.appwrite.io/v1"
@@ -18,6 +19,26 @@ const getVisitorsFromDatabase = async () => {
 		APPWRITE_COLLECTION_ID,
 		);
 	return documents;
+};
+
+const getVisitor = async (id: string | null) => {
+	if(id !== null) {
+		try {
+			
+			const client = new Client();
+
+	const databases = new Databases(client);
+
+	client	
+		.setEndpoint('https://cloud.appwrite.io/v1') 
+		.setProject('660963105209c1bf629f');
+
+	const promise = await databases.getDocument('660966fa13868169391e', '6609672da8b35f31ec23', id);
+	return promise;
+			} catch (e){ 
+				throw error(404, "Ticket Not Found")
+			}}
+	return null;
 };
 
 const uploadImage = async (isPicture : boolean, uniqueId : string, file: any) => {
@@ -51,4 +72,4 @@ const createVisitors = async (name: string, phone: string, email: string, course
 	return result;
 };
 
-export { client, getVisitorsFromDatabase, createVisitors, uploadImage };
+export { client, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor };
