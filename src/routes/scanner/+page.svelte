@@ -70,8 +70,6 @@
   {:else}
     <button on:click={start}>start</button>
   {/if}
-
-  {#if codeData !== ""}{/if}
 </main>
 
 <style>

@@ -31,7 +31,7 @@
             <p class="from">Farewell</p>
             <p class="to">
               <i class="fas fa-arrow-right"></i>
-              2k23
+              2K24
             </p>
           </div>
         </div>
