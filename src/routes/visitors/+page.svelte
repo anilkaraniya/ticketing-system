@@ -1,10 +1,6 @@
 <script lang="ts">
   import { Alert, List, Li, Hr, Search, Button } from "flowbite-svelte";
   import { SearchOutline } from "flowbite-svelte-icons";
-  import {
-    APPWRITE_PROJECT_ID,
-    APPWRITE_STORAGE_PICTURE_ID,
-  } from "$lib/appwrite.js";
   export let data;
 </script>
 
@@ -30,13 +26,6 @@
               <div class="rounded-xl p-3 border-solid border-2 border-grey">
                 {index + 1}
               </div>
-            </div>
-            <div class="flex-shrink-0">
-              <img
-                class="w-10 h-10 lg:w-20 lg:h-20 rounded-full"
-                src="https://cloud.appwrite.io/v1/storage/buckets/{APPWRITE_STORAGE_PICTURE_ID}/files/{visitor.$id}/view?project={APPWRITE_PROJECT_ID}"
-                alt="Neil profile"
-              />
             </div>
             <div class="flex-1 min-w-0">
               <p

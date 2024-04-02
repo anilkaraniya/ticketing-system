@@ -41,6 +41,26 @@ const getVisitor = async (id: string | null) => {
 	return null;
 };
 
+const updateIsVisited = async (id: string) => {
+	if(id !== null) {
+		try {
+			
+			const client = new Client();
+
+	const databases = new Databases(client);
+
+	client	
+		.setEndpoint('https://cloud.appwrite.io/v1') 
+		.setProject('660963105209c1bf629f');
+
+	const promise = await databases.updateDocument('660966fa13868169391e', '6609672da8b35f31ec23', id, {"isVisited": true});
+	return promise;
+			} catch (e){ 
+				throw error(404, "Data not chnaged")
+			}}
+	return null;
+};
+
 const uploadImage = async (isPicture : boolean, uniqueId : string, file: any) => {
 	console.log(uniqueId);
 	await storage.createFile(
@@ -72,4 +92,4 @@ const createVisitors = async (name: string, phone: string, email: string, course
 	return result;
 };
 
-export { client, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor };
+export { client, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor, updateIsVisited };

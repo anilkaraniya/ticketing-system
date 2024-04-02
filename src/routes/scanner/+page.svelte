@@ -1,12 +1,10 @@
 <script>
   // @ts-nocheck
 
-  import { getVisitor } from "$lib/appwrite";
-  // @ts-ignore
-  import { redirect } from "@sveltejs/kit";
-  import { Heading, P } from "flowbite-svelte";
+  import { getVisitor, updateIsVisited } from "$lib/appwrite";
   import { Html5Qrcode } from "html5-qrcode";
   import { onMount } from "svelte";
+  import { Alert, List, Li, P } from "flowbite-svelte";
 
   let scanning = false;
   /**
@@ -18,9 +16,6 @@
    */
   let codeData;
 
-  /**
-   * @type {{}}
-   */
   let data;
   $: data;
 
@@ -54,12 +49,23 @@
     codeData = decodedText;
     alert("Scanned");
     // @ts-ignore
-    data = await getVisitor(decodedText);
+    const fetchedData = await getVisitor(decodedText);
+    data = fetchedData;
     console.log(data);
   }
 
-  // @ts-ignore
-  function onScanFailure(error) {}
+  async function onScanFailure() {}
+
+  async function setIsVisited(id) {
+    console.log("Visited");
+    try {
+      const response = await updateIsVisited(id);
+      data.isVisited = true;
+      alert("The flag chnaged 🌳👍");
+    } catch {
+      alert("Danger ⚠️☠️🚨 : An unknown error occurred");
+    }
+  }
 </script>
 
 <svelte:head>
@@ -73,23 +79,82 @@
   {:else}
     <button on:click={start}>start</button>
   {/if}
-  {#if codeData}
-    {#if codeData.name !== "undefined"}
-      <Heading
-        tag="h1"
-        class="mb-4"
-        customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
-      >
-        Name
-      </Heading>
-      <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-        {codeData}
-      </P>
-    {:else}
-      <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-        No data fetched
-      </P>
-    {/if}
+  {#if data}
+    <List tag="ul" list="none" class="w-full">
+      <Li class="pb-3 sm:pb-4">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+          <div class="flex-1 min-w-0">
+            <p
+              class="text-xl font-medium text-gray-900 truncate dark:text-white"
+            >
+              {data.name}
+            </p>
+            <p class="text-base text-gray-500 truncate dark:text-gray-400">
+              {data.email}
+            </p>
+          </div>
+          <div
+            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+          >
+            <div
+              class="pr-5 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+            >
+              {#if data.isVisited}
+                <div class="card border-green-400 p-2">Visited</div>
+              {:else}
+                <div class="card border-red-500 p-2">Not Visited</div>
+              {/if}
+            </div>
+
+            {#if !data.isVisited}
+              <div
+                class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+              >
+                <button class="text-1xl pl-4" on:click={setIsVisited(data.$id)}>
+                  &#10003;
+                </button>
+              </div>
+            {/if}
+          </div>
+        </div>
+      </Li>
+      <Li class="pb-3 sm:pb-4">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+          <div class="flex-1 min-w-0">
+            <p
+              class="text-xl font-medium text-gray-900 truncate dark:text-white"
+            >
+              {data.phone}
+            </p>
+            <p class="text-base text-gray-500 truncate dark:text-gray-400">
+              MOP: {data.mop}
+            </p>
+          </div>
+          <div
+            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+          >
+            <div
+              class="pr-5 inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+            >
+              {data.course}
+            </div>
+
+            <div
+              class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+            >
+              Year : {data.year}
+            </div>
+          </div>
+        </div>
+      </Li>
+    </List>
+  {:else}
+    <div class="p-8">
+      <Alert color="red">
+        <span class="font-medium">Info</span>
+        No data Fetched.
+      </Alert>
+    </div>
   {/if}
 </main>
 
@@ -105,6 +170,13 @@
     width: 100%;
     min-height: 500px;
     background-color: black;
+  }
+
+  div.card {
+    background: transparent;
+    border-style: solid;
+    border-width: 4px 4px 4px 4px;
+    border-radius: 0.3rem;
   }
 
   @media (max-width: 720px) {

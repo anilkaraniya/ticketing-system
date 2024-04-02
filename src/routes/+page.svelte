@@ -85,6 +85,15 @@
             />
           </div>
         </div>
+        <div
+          class="justify-center mt-5 px-10 py-3 text-center items-center font-semibold text-gray-900 dark:text-white"
+        >
+          {#if data.response.isVisited}
+            <div class="card card-green p-2">Visited</div>
+          {:else}
+            <div class="card card-red p-2">Not Visited</div>
+          {/if}
+        </div>
       </div>
     </div>
   {:else}
@@ -118,7 +127,7 @@
 
   .container .ticket {
     position: absolute;
-    top: 55%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -237,5 +246,23 @@
   }
   .small-text {
     font-size: 12px !important;
+  }
+
+  div.card {
+    background: white;
+    border-radius: 1.3rem;
+  }
+  div.card-green {
+    color: green;
+    box-shadow:
+      -5px -5px 9px rgba(43, 255, 0, 0.616),
+      5px 5px 9px rgba(9, 255, 0, 0.603);
+  }
+
+  div.card-red {
+    color: red;
+    box-shadow:
+      -5px -5px 9px rgb(247, 122, 122),
+      5px 5px 9px rgba(190, 0, 0, 0.603);
   }
 </style>
