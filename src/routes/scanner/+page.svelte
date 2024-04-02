@@ -1,7 +1,10 @@
 <script>
+  // @ts-nocheck
+
   import { getVisitor } from "$lib/appwrite";
   // @ts-ignore
   import { redirect } from "@sveltejs/kit";
+  import { Heading, P } from "flowbite-svelte";
   import { Html5Qrcode } from "html5-qrcode";
   import { onMount } from "svelte";
 
@@ -19,6 +22,7 @@
    * @type {{}}
    */
   let data;
+  $: data;
 
   onMount(init);
 
@@ -31,7 +35,7 @@
       { facingMode: "environment" },
       {
         fps: 10,
-        qrbox: { width: 1000, height: 1000 },
+        qrbox: { width: 600, height: 300 },
       },
       onScanSuccess,
       onScanFailure
@@ -55,7 +59,6 @@
   }
 
   // @ts-ignore
-  // @ts-ignore
   function onScanFailure(error) {}
 </script>
 
@@ -69,6 +72,24 @@
     <button on:click={stop}>stop</button>
   {:else}
     <button on:click={start}>start</button>
+  {/if}
+  {#if codeData}
+    {#if codeData.name !== "undefined"}
+      <Heading
+        tag="h1"
+        class="mb-4"
+        customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+      >
+        Name
+      </Heading>
+      <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+        {codeData}
+      </P>
+    {:else}
+      <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+        No data fetched
+      </P>
+    {/if}
   {/if}
 </main>
 
