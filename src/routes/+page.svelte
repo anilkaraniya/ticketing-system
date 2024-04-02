@@ -141,6 +141,10 @@
     border-radius: 25px;
   }
   .airline .top {
+    box-shadow:
+      -5px -5px 9px rgba(255, 255, 255, 0.45),
+      5px 5px 9px rgba(94, 104, 121, 0.3);
+
     height: 165px;
     background: #ffcc05;
     border-top-right-radius: 25px;
@@ -159,6 +163,10 @@
     transform: translateX(-50%);
   }
   .airline .bottom {
+    box-shadow:
+      -5px -5px 9px rgba(255, 255, 255, 0.45),
+      5px 5px 9px rgba(94, 104, 121, 0.3);
+
     height: 335px;
     background: #fff;
     border-bottom-right-radius: 25px;
