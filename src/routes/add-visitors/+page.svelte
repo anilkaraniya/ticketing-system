@@ -1,36 +1,11 @@
 <script lang="ts">
   // @ts-nocheck
-  import { browser } from "$app/environment";
-  import { createVisitors, uploadImage } from "$lib/appwrite";
-  import { onMount } from "svelte";
+  import { createVisitors } from "$lib/appwrite";
+  import { Alert, Button } from 'flowbite-svelte';
+  import { InfoCircleSolid } from 'flowbite-svelte-icons';
 
-  let selectedPaymentFile;
-  let selectedPictureFile;
-  let resizeImage = (file) => {
-    return new Promise((resolve, reject) => {
-      resize(file, 500, 500, "JPEG", 100, 0, (uri) => resolve(uri), "blob");
-    });
-  };
-  if (browser) {
-    onMount(() => {
-      let picture =
-        /** @type {HTMLInputElement} */ document.getElementById("photo");
-      if (picture !== null) {
-        picture.onchange = () => {
-          selectedPictureFile = picture.files[0];
-          console.log(selectedPictureFile);
-        };
-      }
-      let payment =
-        /** @type {HTMLInputElement} */ document.getElementById("payment");
-      if (payment !== null) {
-        payment.onchange = () => {
-          selectedPaymentFile = payment.files[0];
-          console.log(selectedPaymentFile);
-        };
-      }
-    });
-  }
+  let iscreated = false;
+
   async function uploadStart() {
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
@@ -48,9 +23,7 @@
       };
     }
     let uniqueID = name.substring(0, 5).trim() + phone;
-    await uploadImage(true, uniqueID, selectedPictureFile);
-    await uploadImage(false, uniqueID, selectedPaymentFile);
-
+    
     const result = await createVisitors(
       name,
       phone,
@@ -59,10 +32,9 @@
       year,
       mop,
       uniqueID,
-      uniqueID,
-      uniqueID
     );
-
+    document.getElementById("form").reset();
+    let iscreated = true;
     return {
       status: 200,
       body: result,
@@ -74,10 +46,17 @@
   <title>Add Visitors</title>
 </svelte:head>
 
+<!-- <Alert color="green" dismissable>
+  <InfoCircleSolid slot="icon" class="w-4 h-4" />
+  A simple info alert with an
+  <a href="/" class="font-semibold underline hover:text-green-800 dark:hover:text-green-900">example link</a>
+  . Give it a click if you like.
+</Alert> -->
 <main class="column">
   <div class="todos-container box column">
     <h1>Add Visitors</h1>
   </div>
+
 
   <form class="box column" action="" enctype="multipart/form-data" id="form">
     <div class="input-container column">
@@ -120,26 +99,6 @@
         <option value="Cash">Cash</option>
         <option value="Online">Online</option>
       </select>
-    </div>
-
-    <div class="input-container column">
-      <label for="photo">Photo</label>
-      <input
-        type="file"
-        name="photo"
-        id="photo"
-        accept=".jpg, .png, .jpeg, .gif"
-      />
-    </div>
-
-    <div class="input-container column">
-      <label for="paymentss">Payment ScreenShot</label>
-      <input
-        type="file"
-        name="payments"
-        id="payment"
-        accept=".jpg, .png, .jpeg, .gif"
-      />
     </div>
 
     <button on:click={uploadStart}>Add Visitor</button>

@@ -70,11 +70,11 @@ const uploadImage = async (isPicture : boolean, uniqueId : string, file: any) =>
 		);
 } 
 
-const createVisitors = async (name: string, phone: string, email: string, course: string, year: string, mop : string, picture: string, payment: string  , uniqueId : string) => {
+const createVisitors = async (name: string, phone: string, email: string, course: string, year: string, mop : string, uniqueId : string) => {
 	const result = await databases.createDocument(
 		APPWRITE_DATABASE_ID,
 		APPWRITE_COLLECTION_ID,
-		picture,
+		uniqueId,
 		{
 			"name" : name, 
 			"phone" :phone, 
@@ -82,9 +82,7 @@ const createVisitors = async (name: string, phone: string, email: string, course
 			"course":course, 
 			"year":year, 
 			"mop" :mop, 
-			"pictureId" : picture, 
-			"paymentId" : picture,
-			"id" : picture,
+			"id" : uniqueId,
 			'createdAt' : new Date(),
 		}
 	);

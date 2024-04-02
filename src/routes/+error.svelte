@@ -1,6 +1,6 @@
 <script>
-  import Alert from "flowbite-svelte/Alert.svelte";
   import { InfoCircleSolid } from "flowbite-svelte-icons";
+  import { Alert } from "flowbite-svelte";
   import { page } from "$app/stores";
 </script>
 
