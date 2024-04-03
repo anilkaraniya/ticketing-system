@@ -36,44 +36,44 @@
       uniqueID
     );
 
-    // emailjs.send("service_fsvkdnp","template_75mq9im",{
-    //   to_name: name,
-    //   message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-    //   reply_to: email,
-    // },
-    //   {
-    //     publicKey: '8Vvkzh0V5CQHPLnaq',
-    //   })
-    //   .then(
-    //     () => {
-    //       console.log('SUCCESS!');
-    //     },
-    //     (error) => {
-    //       console.log('FAILED...', error);
-    //     },
-    //   );
-
-    emailjs
-      .send(
-        "service_fosyqp9",
-        "template_lm9mvzd",
-        {
-          to_name: name,
-          message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-          reply_to: email,
-        },
-        {
-          publicKey: "xntlUgpGgtSKEStQw",
-        }
-      )
+    emailjs.send("service_fsvkdnp","template_75mq9im",{
+      to_name: name,
+      message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+      reply_to: email,
+    },
+      {
+        publicKey: '8Vvkzh0V5CQHPLnaq',
+      })
       .then(
         () => {
-          console.log("SUCCESS!");
+          console.log('SUCCESS!');
         },
         (error) => {
-          console.log("FAILED...", error);
-        }
+          console.log('FAILED...', error);
+        },
       );
+
+    // emailjs
+    //   .send(
+    //     "service_fosyqp9",
+    //     "template_lm9mvzd",
+    //     {
+    //       to_name: name,
+    //       message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+    //       reply_to: email,
+    //     },
+    //     {
+    //       publicKey: "xntlUgpGgtSKEStQw",
+    //     }
+    //   )
+    //   .then(
+    //     () => {
+    //       console.log("SUCCESS!");
+    //     },
+    //     (error) => {
+    //       console.log("FAILED...", error);
+    //     }
+    //   );
 
     document.getElementById("form").reset();
     iscreated = true;
