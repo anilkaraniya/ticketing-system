@@ -1,9 +1,9 @@
 <script lang="ts">
   // @ts-nocheck
   import { createVisitors } from "$lib/appwrite";
-  import { Alert, } from 'flowbite-svelte';
-  import { InfoCircleSolid } from 'flowbite-svelte-icons';
-  import emailjs from '@emailjs/browser';
+  import { Alert } from "flowbite-svelte";
+  import { InfoCircleSolid } from "flowbite-svelte-icons";
+  import emailjs from "@emailjs/browser";
 
   let iscreated = false;
 
@@ -25,7 +25,7 @@
     }
     const uniqueID = name.substring(0, 5).trim().toLowerCase() + phone;
     console.log(uniqueID);
-    
+
     const result = await createVisitors(
       name,
       phone,
@@ -33,7 +33,7 @@
       course,
       year,
       mop,
-      uniqueID,
+      uniqueID
     );
 
     // emailjs.send("service_fsvkdnp","template_75mq9im",{
@@ -53,23 +53,27 @@
     //     },
     //   );
 
-      emailjs.send("service_fosyqp9","template_lm9mvzd",{
-      to_name: name,
-      message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-      reply_to: email,
-    },
-      {
-        publicKey: '8Vvkzh0V5CQHPLnaq',
-      })
+    emailjs
+      .send(
+        "service_fosyqp9",
+        "template_lm9mvzd",
+        {
+          to_name: name,
+          message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+          reply_to: email,
+        },
+        {
+          publicKey: "xntlUgpGgtSKEStQw",
+        }
+      )
       .then(
         () => {
-          console.log('SUCCESS!');
+          console.log("SUCCESS!");
         },
         (error) => {
-          console.log('FAILED...', error);
-        },
+          console.log("FAILED...", error);
+        }
       );
-  
 
     document.getElementById("form").reset();
     iscreated = true;
@@ -79,8 +83,8 @@
     };
   }
 
-  function closeAlert () {
-    iscreated = false
+  function closeAlert() {
+    iscreated = false;
   }
 </script>
 
@@ -89,10 +93,10 @@
 </svelte:head>
 
 {#if iscreated}
-<Alert color="green" class="mb-4" dismissable on:close={closeAlert}>
-  <InfoCircleSolid slot="icon" class="w-4 h-4" />
-  The visitor was added successfully !!
-</Alert>
+  <Alert color="green" class="mb-4" dismissable on:close={closeAlert}>
+    <InfoCircleSolid slot="icon" class="w-4 h-4" />
+    The visitor was added successfully !!
+  </Alert>
 {/if}
 
 <main class="column">
@@ -100,8 +104,7 @@
     <h1>Add Visitors</h1>
   </div>
 
-
-  <form class="box column" action="" enctype="multipart/form-data" id="form">
+  <form class="box column" on enctype="multipart/form-data" id="form">
     <div class="input-container column">
       <label for="name">Name</label>
       <input type="text" name="name" id="name" />

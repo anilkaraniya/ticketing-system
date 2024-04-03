@@ -20,145 +20,144 @@
 </svelte:head>
 
 <div class="app">
-
   <main>
-<section>
-  {#if data}
-    <div class="container">
-      <div class="ticket basic">
-        <p>Admit One</p>
-      </div>
+    <section>
+      {#if data}
+        <div class="container">
+          <div class="ticket basic">
+            <p>Admit One</p>
+          </div>
 
-      <div class="ticket airline">
-        <div class="top">
-          <h1>Bakliwal Foundation College of Arts, Commerce and Science</h1>
-          <div class="big">
-            <p class="from">Farewell</p>
-            <p class="to">
-              <i class="fas fa-arrow-right"></i>
-              2K24
-            </p>
+          <div class="ticket airline">
+            <div class="top">
+              <h1>Bakliwal Foundation College of Arts, Commerce and Science</h1>
+              <div class="big">
+                <p class="from">Farewell</p>
+                <p class="to">
+                  <i class="fas fa-arrow-right"></i>
+                  2K24
+                </p>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="column">
+                <div class="row row-1">
+                  <p class="small-text">
+                    <span>Email</span>
+                    {data.response.email}
+                  </p>
+                  <p class="row--right small-text">
+                    <span>MOP</span>
+                    {data.response.mop}
+                  </p>
+                </div>
+                <div class="row row-2">
+                  <p>
+                    <span>Entry</span>
+                    03:00 PM
+                  </p>
+                  <p class="row--center">
+                    <span>Commencement</span>
+                    04:00 PM
+                  </p>
+                  <p class="row--right">
+                    <span>End</span>
+                    9:00 PM
+                  </p>
+                </div>
+                <div class="row row-3">
+                  <p>
+                    <span>Name</span>
+                    {data.response.name}
+                  </p>
+                  <p class="row--center">
+                    <span>Year</span>
+                    {data.response.year}
+                  </p>
+                  <p class="row--right">
+                    <span>Group</span>
+                    {data.response.course}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <img
+                  class="barcode"
+                  alt="Barcode"
+                  src="https://barcode.tec-it.com/barcode.ashx?data={data
+                    .response.id}"
+                />
+              </div>
+            </div>
+            <div
+              class="justify-center mt-5 px-10 py-3 text-center items-center font-semibold text-gray-900 dark:text-white"
+            >
+              {#if data.response.isVisited}
+                <div class="card card-green p-2">Visited</div>
+              {:else}
+                <div class="card card-red p-2">Not Visited</div>
+              {/if}
+            </div>
           </div>
         </div>
-        <div class="bottom">
-          <div class="column">
-            <div class="row row-1">
-              <p class="small-text">
-                <span>Email</span>
-                {data.response.email}
-              </p>
-              <p class="row--right small-text">
-                <span>MOP</span>
-                {data.response.mop}
-              </p>
-            </div>
-            <div class="row row-2">
-              <p>
-                <span>Entry</span>
-                03:00 PM
-              </p>
-              <p class="row--center">
-                <span>Commencement</span>
-                04:00 PM
-              </p>
-              <p class="row--right">
-                <span>End</span>
-                9:00 PM
-              </p>
-            </div>
-            <div class="row row-3">
-              <p>
-                <span>Name</span>
-                {data.response.name}
-              </p>
-              <p class="row--center">
-                <span>Year</span>
-                {data.response.year}
-              </p>
-              <p class="row--right">
-                <span>Group</span>
-                {data.response.course}
-              </p>
-            </div>
-          </div>
-          <div>
-            <img
-              class="barcode"
-              alt="Barcode"
-              src="https://barcode.tec-it.com/barcode.ashx?data={data.response
-                .id}"
-            />
-          </div>
+      {:else}
+        <div class="p-8">
+          <Alert color="red" rounded={false} class="border-t-4">
+            <InfoCircleSolid slot="icon" class="w-4 h-4" />
+            <span class="font-medium">Alert!</span>
+            Enter a valid URL.
+          </Alert>
         </div>
-        <div
-          class="justify-center mt-5 px-10 py-3 text-center items-center font-semibold text-gray-900 dark:text-white"
-        >
-          {#if data.response.isVisited}
-            <div class="card card-green p-2">Visited</div>
-          {:else}
-            <div class="card card-red p-2">Not Visited</div>
-          {/if}
-        </div>
-      </div>
-    </div>
-  {:else}
-    <div class="p-8">
-      <Alert color="red" rounded={false} class="border-t-4">
-        <InfoCircleSolid slot="icon" class="w-4 h-4" />
-        <span class="font-medium">Alert!</span>
-        Enter a valid URL.
-      </Alert>
-    </div>
-  {/if}
-</section></main>
+      {/if}
+    </section>
+  </main>
 
-<footer>
-  <p>
-    Made with ❤️ by <a href="https://anil.live">Anil Karaniya</a>
-    using
-    <a href="https://svelte.dev/">Svelte</a>
-  </p>
-</footer>
+  <footer>
+    <p>
+      Made with ❤️ by <a href="https://anil.live">Anil Karaniya</a>
+      using
+      <a href="https://svelte.dev/">Svelte</a>
+    </p>
+  </footer>
 </div>
 
 <style>
-
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  width: 100%;
-  max-width: 64rem;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  z-index: 2;
-}
-
-footer a {
-  font-weight: bold;
-}
-
-@media (min-width: 480px) {
-  footer {
-    padding: 12px 0;
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-}
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+    max-width: 64rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    z-index: 2;
+  }
+
+  footer a {
+    font-weight: bold;
+  }
+
+  @media (min-width: 480px) {
+    footer {
+      padding: 12px 0;
+    }
+  }
   section {
     display: flex;
     flex-direction: column;
@@ -176,7 +175,7 @@ footer a {
 
   .container .ticket {
     position: absolute;
-    top: 45%;
+    top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
