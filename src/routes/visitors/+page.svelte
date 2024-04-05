@@ -90,7 +90,7 @@
           <div class="flex items-center space-x-4 rtl:space-x-reverse">
             <div class="flex-shrink-0">
               <div class="rounded-xl p-3 border-solid border-2 border-grey">
-                {index + 1}
+                {visitors.length - index}
               </div>
             </div>
             <div class="flex-1 min-w-0">
