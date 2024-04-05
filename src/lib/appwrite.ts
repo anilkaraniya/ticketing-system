@@ -125,44 +125,44 @@ const updateTotalIsVisited = async (id: any) => {
 };
 
 const sendMail = async (email: string, name: string, uniqueID: string) => {
-	await emailjs.send("service_fsvkdnp","template_75mq9im",{
-		to_name: name,
-		message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-		reply_to: email,
-	  },
-		{
-		  publicKey: '8Vvkzh0V5CQHPLnaq',
-		})
-		.then(
-		  () => {
-			console.log('SUCCESS!');
-		  },
-		  (error) => {
-			console.log('FAILED...', error);
-		  },
-		);
+	// await emailjs.send("service_fsvkdnp","template_75mq9im",{
+	// 	to_name: name,
+	// 	message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+	// 	reply_to: email,
+	//   },
+	// 	{
+	// 	  publicKey: '8Vvkzh0V5CQHPLnaq',
+	// 	})
+	// 	.then(
+	// 	  () => {
+	// 		console.log('SUCCESS!');
+	// 	  },
+	// 	  (error) => {
+	// 		console.log('FAILED...', error);
+	// 	  },
+	// 	);
   
-	  // await emailjs
-	  //   .send(
-	  //     "service_fosyqp9",
-	  //     "template_lm9mvzd",
-	  //     {
-	  //       to_name: name,
-	  //       message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-	  //       reply_to: email,
-	  //     },
-	  //     {
-	  //       publicKey: "xntlUgpGgtSKEStQw",
-	  //     }
-	  //   )
-	  //   .then(
-	  //     () => {
-	  //       console.log("SUCCESS!");
-	  //     },
-	  //     (error) => {
-	  //       console.log("FAILED...", error);
-	  //     }
-	  //   );
+	  await emailjs
+	    .send(
+	      "service_fosyqp9",
+	      "template_lm9mvzd",
+	      {
+	        to_name: name,
+	        message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+	        reply_to: email,
+	      },
+	      {
+	        publicKey: "xntlUgpGgtSKEStQw",
+	      }
+	    )
+	    .then(
+	      () => {
+	        console.log("SUCCESS!");
+	      },
+	      (error) => {
+	        console.log("FAILED...", error);
+	      }
+	    );
 }
 
 export { client,updateTotalIsVisited, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor, updateIsVisited, sendMail };
