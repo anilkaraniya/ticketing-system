@@ -63,7 +63,7 @@ const updateIsVisited = async (id: string) => {
 	const promise = await databases.updateDocument('660966fa13868169391e', '6609672da8b35f31ec23', id, {"isVisited": true});
 	return promise;
 			} catch (e){ 
-				throw error(404, "Data not chnaged")
+				throw error(404, "Data not changed")
 			}}
 	return null;
 };
@@ -109,10 +109,17 @@ const updateTotalIsVisited = async (id: any) => {
 		.setEndpoint('https://cloud.appwrite.io/v1') 
 		.setProject('660963105209c1bf629f');
 
-	const promise = await databases.updateDocument('660966fa13868169391e', '6609672da8b35f31ec23', id.$id, id);
+	const promise = await databases.updateDocument('660966fa13868169391e', '6609672da8b35f31ec23', id.$id, {
+		"name" : id.name, 
+		"phone" :id.phone, 
+		"email" : id.email, 
+		"course":id.course, 
+		"year":id.year, 
+		"mop" :id.mop, 
+	});
 	return promise;
 			} catch (e){ 
-				throw error(404, "Data not chnaged")
+				throw error(404, "Data not changed")
 			}}
 	return null;
 };

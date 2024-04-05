@@ -16,20 +16,8 @@
       <path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
     </svg>
     <ul>
-      <li aria-current={$page.url.pathname === "/scanner" ? "page" : undefined}>
-        <a href="/scanner">Scan</a>
-      </li>
-      <li
-        aria-current={$page.url.pathname === "/add-visitors"
-          ? "page"
-          : undefined}
-      >
-        <a href="/add-visitors">Add</a>
-      </li>
-      <li
-        aria-current={$page.url.pathname === "/visitors" ? "page" : undefined}
-      >
-        <a href="/visitors">Visitors</a>
+      <li aria-current={$page.url.pathname === "/pass" ? "page" : undefined}>
+        <a href="/pass">Scan</a>
       </li>
     </ul>
     <svg viewBox="0 0 2 3" aria-hidden="true">
