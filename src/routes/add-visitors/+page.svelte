@@ -1,6 +1,6 @@
 <script lang="ts">
   // @ts-nocheck
-  import { createVisitors } from "$lib/appwrite";
+  import { createVisitors, sendMail } from "$lib/appwrite";
   import { Alert } from "flowbite-svelte";
   import { InfoCircleSolid } from "flowbite-svelte-icons";
   import emailjs from "@emailjs/browser";
@@ -23,7 +23,8 @@
         },
       };
     }
-    const uniqueID = name.substring(0, 5).trim().toLowerCase() + phone;
+    const uniqName = name.replace(/\s/g, "");
+    const uniqueID = uniqName.substring(0, 5).toLowerCase() + phone;
     console.log(uniqueID);
 
     const result = await createVisitors(
@@ -36,44 +37,7 @@
       uniqueID
     );
 
-    emailjs.send("service_fsvkdnp","template_75mq9im",{
-      to_name: name,
-      message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-      reply_to: email,
-    },
-      {
-        publicKey: '8Vvkzh0V5CQHPLnaq',
-      })
-      .then(
-        () => {
-          console.log('SUCCESS!');
-        },
-        (error) => {
-          console.log('FAILED...', error);
-        },
-      );
-
-    // emailjs
-    //   .send(
-    //     "service_fosyqp9",
-    //     "template_lm9mvzd",
-    //     {
-    //       to_name: name,
-    //       message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
-    //       reply_to: email,
-    //     },
-    //     {
-    //       publicKey: "xntlUgpGgtSKEStQw",
-    //     }
-    //   )
-    //   .then(
-    //     () => {
-    //       console.log("SUCCESS!");
-    //     },
-    //     (error) => {
-    //       console.log("FAILED...", error);
-    //     }
-    //   );
+    await sendMail(email, name, uniqueID);
 
     document.getElementById("form").reset();
     iscreated = true;

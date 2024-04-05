@@ -4,21 +4,49 @@
     APPWRITE_COLLECTION_ID,
     APPWRITE_DATABASE_ID,
     APPWRITE_PROJECT_ID,
+    sendMail,
+    updateTotalIsVisited,
   } from "$lib/appwrite.js";
   import { Client, Databases } from "appwrite";
 
-  import { Alert, List, Li, Hr, Search, Button, Modal } from "flowbite-svelte";
+  import {
+    Alert,
+    List,
+    Li,
+    Hr,
+    Button,
+    Modal,
+    Label,
+    Input,
+    Checkbox,
+    Select,
+  } from "flowbite-svelte";
   import {
     SearchOutline,
     ExclamationCircleOutline,
     InfoCircleSolid,
   } from "flowbite-svelte-icons";
 
+  let formModal = false;
   let popupModal = false;
+  let selectedCourse;
+  let selectedYear;
+  let course = [
+    { value: "BBA", name: "BBA" },
+    { value: "BACS", name: "BACS" },
+    { value: "BCA", name: "BCA" },
+    { value: "B'com", name: "B'com" },
+  ];
+  let year = [
+    { value: "1", name: "First Year" },
+    { value: "2", name: "Second Year" },
+    { value: "3", name: "Third Year" },
+  ];
   export let data;
   let visitors = data.visitors;
-  let deletDataID;
+  let modelData;
   let isAlertAvailable = false;
+  let alertMessage = "";
 
   async function deleteUser() {
     const client = new Client();
@@ -30,13 +58,15 @@
       const promise = await databases.deleteDocument(
         APPWRITE_DATABASE_ID,
         APPWRITE_COLLECTION_ID,
-        deletDataID
+        modelData.$id
       );
+      alertMessage = "Visitor Data Deleted";
       isAlertAvailable = true;
     } catch (e) {
       console.log(e);
     }
     popupModal = false;
+    formModal = false;
   }
 </script>
 
@@ -47,7 +77,7 @@
 {#if isAlertAvailable}
   <Alert class="mt-5" color="green" dismissable>
     <InfoCircleSolid slot="icon" class="w-4 h-4" />
-    Visitor data deleted;
+    {alertMessage}
   </Alert>
 {/if}
 
@@ -81,16 +111,118 @@
               >
                 <Button
                   on:click={() => {
-                    popupModal = true;
-                    deletDataID = visitor.$id;
+                    modelData = visitor;
+                    selectedCourse = visitor.course;
+                    selectedYear = visitor.year;
+                    formModal = true;
                   }}
                 >
-                  Delete
+                  Edit
                 </Button>
               </div>
             </div>
           </div>
         </Li>
+        <Modal bind:open={formModal} size="xs" autoclose={false} class="w-full">
+          <form preventDefault class="flex flex-col space-y-6" action="#">
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+              Edit the Visitors data
+            </h3>
+            <Label class="space-y-2">
+              <span>Name</span>
+              <Input
+                type="text"
+                name="name"
+                value={modelData.name}
+                placeholder="John Doe"
+                id="email"
+                required
+              />
+            </Label>
+            <Label class="space-y-2">
+              <span>Phone</span>
+              <Input
+                type="tel"
+                name="phone"
+                value={modelData.phone}
+                placeholder="555-555-1212"
+                id="phone"
+                required
+              />
+            </Label>
+            <Label class="space-y-2">
+              <span>Email</span>
+              <Input
+                type="email"
+                name="email"
+                value={modelData.email}
+                placeholder="name@company.com"
+                id="email"
+                required
+              />
+            </Label>
+            <Label class="space-y-2">
+              <span>Course</span>
+              <Select
+                class="mt-2"
+                name="course"
+                id="course"
+                items={course}
+                bind:value={selectedCourse}
+              />
+            </Label>
+            <Label class="space-y-2">
+              <span>Year</span>
+              <Select
+                class="mt-2"
+                name="year"
+                id="year"
+                items={year}
+                bind:value={selectedYear}
+              />
+            </Label>
+
+            <div class="flex justify-between">
+              <Button
+                type="submit"
+                class="w-2/1"
+                on:click={() => {
+                  popupModal = true;
+                }}
+              >
+                Delete
+              </Button>
+              <Button
+                type="submit"
+                color="white"
+                class="w-2/1 text-primary-600"
+                on:click={async () => {
+                  await sendMail(
+                    modelData.email,
+                    modelData.name,
+                    modelData.$id
+                  );
+                  alertMessage = `Email sent to ${modelData.name} at ${modelData.email}`;
+                  formModal = false;
+                  isAlertAvailable = true;
+                }}
+              >
+                Resend Email
+              </Button>
+              <Button
+                type="submit"
+                color="green"
+                class="w-2/1"
+                on:click={async () => {
+                  await updateTotalIsVisited(modelData);
+                  formModal = false;
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          </form>
+        </Modal>
         <Modal bind:open={popupModal} size="xs" autoclose>
           <div class="text-center">
             <ExclamationCircleOutline

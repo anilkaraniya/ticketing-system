@@ -5,7 +5,7 @@
   import { Html5Qrcode } from "html5-qrcode";
   import { onMount } from "svelte";
   import { Alert, List, Li, P } from "flowbite-svelte";
-  import {InfoCircleSolid} from 'flowbite-svelte-icons'
+  import { InfoCircleSolid } from "flowbite-svelte-icons";
 
   let scanning = false;
   /**
@@ -34,7 +34,7 @@
       { facingMode: "environment" },
       {
         fps: 10,
-        qrbox: { width: 600, height: 300 },
+        qrbox: { width: 250, height: 50 },
       },
       onScanSuccess,
       onScanFailure
@@ -47,7 +47,6 @@
     scanning = false;
   }
 
-  // @ts-ignore
   // @ts-ignore
   async function onScanSuccess(decodedText, decodedResult) {
     codeData = decodedText;
@@ -74,8 +73,8 @@
     }
   }
 
-  function closeAlert () {
-    isVisitorUpdate = false
+  function closeAlert() {
+    isVisitorUpdate = false;
   }
 </script>
 
@@ -91,10 +90,15 @@
     <button on:click={start}>start</button>
   {/if}
   {#if isVisitorUpdate}
-  <Alert color="{visitorUpdateColor}" class="mb-4" dismissable on:close={closeAlert}>
-    <InfoCircleSolid slot="icon" class="w-4 h-4" />
-    {visitorUpdate}
-  </Alert>
+    <Alert
+      color={visitorUpdateColor}
+      class="mb-4"
+      dismissable
+      on:close={closeAlert}
+    >
+      <InfoCircleSolid slot="icon" class="w-4 h-4" />
+      {visitorUpdate}
+    </Alert>
   {/if}
   {#if data}
     <List tag="ul" list="none" class="w-full">

@@ -1,4 +1,5 @@
-import { error } from '@sveltejs/kit';
+  import emailjs from "@emailjs/browser";
+  import { error } from '@sveltejs/kit';
 import { Client, Databases, ID, Query, Storage } from 'appwrite';
 export let APPWRITE_PROJECT_ID= "660963105209c1bf629f"
 export let APPWRITE_ENDPOINT= "https://cloud.appwrite.io/v1"
@@ -19,6 +20,10 @@ const getVisitorsFromDatabase = async () => {
 	const { documents } = await databases.listDocuments(
 		APPWRITE_DATABASE_ID, 
 		APPWRITE_COLLECTION_ID,
+		[
+			Query.limit(200),
+			Query.orderDesc('createdAt'),
+		],
 		);
 	return documents;
 };
@@ -92,4 +97,65 @@ const createVisitors = async (name: string, phone: string, email: string, course
 	return result;
 };
 
-export { client, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor, updateIsVisited };
+const updateTotalIsVisited = async (id: any) => {
+	if(id !== null) {
+		try {
+			
+			const client = new Client();
+
+	const databases = new Databases(client);
+
+	client	
+		.setEndpoint('https://cloud.appwrite.io/v1') 
+		.setProject('660963105209c1bf629f');
+
+	const promise = await databases.updateDocument('660966fa13868169391e', '6609672da8b35f31ec23', id.$id, id);
+	return promise;
+			} catch (e){ 
+				throw error(404, "Data not chnaged")
+			}}
+	return null;
+};
+
+const sendMail = async (email: string, name: string, uniqueID: string) => {
+	await emailjs.send("service_fsvkdnp","template_75mq9im",{
+		to_name: name,
+		message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+		reply_to: email,
+	  },
+		{
+		  publicKey: '8Vvkzh0V5CQHPLnaq',
+		})
+		.then(
+		  () => {
+			console.log('SUCCESS!');
+		  },
+		  (error) => {
+			console.log('FAILED...', error);
+		  },
+		);
+  
+	  // await emailjs
+	  //   .send(
+	  //     "service_fosyqp9",
+	  //     "template_lm9mvzd",
+	  //     {
+	  //       to_name: name,
+	  //       message: `https://farewell-bfc.netlify.app/?id=${uniqueID}`,
+	  //       reply_to: email,
+	  //     },
+	  //     {
+	  //       publicKey: "xntlUgpGgtSKEStQw",
+	  //     }
+	  //   )
+	  //   .then(
+	  //     () => {
+	  //       console.log("SUCCESS!");
+	  //     },
+	  //     (error) => {
+	  //       console.log("FAILED...", error);
+	  //     }
+	  //   );
+}
+
+export { client,updateTotalIsVisited, getVisitorsFromDatabase, createVisitors, uploadImage, getVisitor, updateIsVisited, sendMail };
