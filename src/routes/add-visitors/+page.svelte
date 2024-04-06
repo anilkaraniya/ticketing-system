@@ -96,17 +96,17 @@
     <div class="input-container column">
       <label for="year">Year</label>
       <select name="year" id="year">
+        <option value="3">Third Year</option>
         <option value="1">First Year</option>
         <option value="2">Second Year</option>
-        <option value="3">Third Year</option>
       </select>
     </div>
 
     <div class="input-container column">
       <label for="payment">Mode of Payment</label>
       <select name="mop" id="mop">
-        <option value="Cash">Cash</option>
         <option value="Online">Online</option>
+        <option value="Cash">Cash</option>
       </select>
     </div>
 
