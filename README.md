@@ -1,3 +1,9 @@
+_- by Anil Karaniya_
+
+<p align="center">
+  <img src="https://github.com/anilkaraniya/ticketing-system/blob/main/assets/ticket-screenshot.jpg">
+</p>
+
 # introduction
 
 This is a ticketing system that was used in my college's farewell event. The web app was instrumental in hosting the event and making everything run smoothly, from data management to data retrieval. Everything was automated.
