@@ -1,13 +1,10 @@
 <script lang="ts">
   // @ts-nocheck
   import {
-    APPWRITE_COLLECTION_ID,
-    APPWRITE_DATABASE_ID,
-    APPWRITE_PROJECT_ID,
+    deleteVisitorData,
     sendMail,
     updateTotalIsVisited,
   } from "$lib/appwrite.js";
-  import { Client, Databases } from "appwrite";
 
   import {
     Alert,
@@ -47,17 +44,8 @@
   let alertMessage = "";
 
   async function deleteUser() {
-    const client = new Client();
-    const databases = new Databases(client);
-    client
-      .setEndpoint("https://cloud.appwrite.io/v1")
-      .setProject(APPWRITE_PROJECT_ID);
     try {
-      const promise = await databases.deleteDocument(
-        APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID,
-        modelData.$id
-      );
+      await deleteVisitorData;
       alertMessage = "Visitor Data Deleted";
       isAlertAvailable = true;
     } catch (e) {
