@@ -6,6 +6,7 @@ _- by Anil Karaniya_
 This is a ticketing system that was used in my college's farewell event. The web app was instrumental in hosting the event and making everything run smoothly, from data management to data retrieval. Everything was automated.
 Well, this project is far from perfect I wasted to add authentication and do proper state management, but the time was not enough I worked on this project till the last movement. The project as is works fine and does all the intended and needed things without any issues.
 
+<br>
 <p align="center">
   <img src="https://github.com/anilkaraniya/ticketing-system/blob/main/assets/ticket-screenshot.jpg">
 </p>
